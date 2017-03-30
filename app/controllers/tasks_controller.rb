@@ -13,7 +13,7 @@ class TasksController < ApplicationController
   end
   
   def create
-    @task = Task.new(task_param)
+    @task = Task.new(task_params)
     
     if @task.save
       flash[:success] = "Taskが正常に投稿されました"
@@ -22,6 +22,7 @@ class TasksController < ApplicationController
       flash.now[:danger] = "Taskが投稿されませんでした"
       render :new
     end
+  end
     
   def edit
     @task = Task.find(params[:id])
@@ -36,19 +37,21 @@ class TasksController < ApplicationController
     else
       flash.now[:danger] = "Taskは更新されませんでした"
       render :edit
+    end
   end
   
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
     
-    flsh[:success] = "Taskは正常に削除されました"
-    redireco_to tasks_url
+    flash[:success] = "Taskは正常に削除されました"
+    redirect_to tasks_url
   end
     
   private
   
-  def message_params
-    params.require(:message).permit(:content)
+  def task_params
+    params.require(:task).permit(:content)
   end 
 end
+
