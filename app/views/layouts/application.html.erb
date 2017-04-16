@@ -18,6 +18,9 @@
   <body>
     <%= render "layouts/navbar" %>
     <div class="container">
+      <% if logged_in? %>
+      <h5><%= current_user.name %> さんがログイン中</h5>
+      <% end %>
       <%= render "layouts/flash_tasks" %>
   
       <%= yield %>

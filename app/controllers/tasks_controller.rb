@@ -2,7 +2,7 @@ class TasksController < ApplicationController
  # before_action :set_task,  only: [:show, :edit, :update, :destroy]
   
   def index
-    @tasks = Task.all.page(params[:page])
+    @tasks = current_user.tasks.all.page(params[:page])
   end
   
   def show
@@ -10,11 +10,15 @@ class TasksController < ApplicationController
   end
   
   def new
-    @task = Task.new
+   if logged_in?
+    @task = current_user.tasks.build
+   end
+   # @task = Task.new
   end
   
   def create
-    @task = Task.new(task_params)
+    
+    @task = current_user.tasks.new(task_params)
     
     if @task.save
       flash[:success] = "タスクが正常に登録されました"
@@ -55,7 +59,7 @@ class TasksController < ApplicationController
   end
  
   def task_params
-    params.require(:task).permit(:content, :status)
+    params.require(:task).permit(:content, :status, :user)
   end 
 end
 

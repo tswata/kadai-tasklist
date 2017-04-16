@@ -1,5 +1,5 @@
 <% if logged_in? %>
-<p>ログイン完了ユーザ：<%= current_user.name %></p>
+ <%= link_to "タスク一覧へ", tasks_path %>
 <% else %>
 
 <div class="text-center">
@@ -22,9 +22,11 @@
     </div>
     
     <%= f.submit "ログイン", class: "btn btn-primary btn-block" %>
-    <% end %>
+
 <br>
 
-<%= link_to "会員登録はこちら", signup_path, class: "btn btn-info" %>
-
+    <%= link_to "会員登録はこちら", signup_path, class: "btn btn-info" %>
+  </div>
+</div>
+<% end %>
 <% end %>
